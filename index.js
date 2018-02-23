@@ -1,4 +1,6 @@
 const CRC32 = require('crc-32');
+const unorm = require('unorm');
+const tr = require('transliteration');
 
 module.exports = function citekey(reference) {
   let author_name = '';
@@ -38,7 +40,7 @@ module.exports = function citekey(reference) {
   year = typeof year === 'undefined' ? '' : ':' + year;
 
   // citekey base
-  const citekey_base = author_name + year;
+  const citekey_base = canonical_string(author_name, true) + year;
 
   // universal citekey: use doi if provided
   if (reference.DOI) return citekey_base + hash('b', 10, reference.DOI);
@@ -69,18 +71,15 @@ function hash(start, factor, str) {
 }
 
 function canonical_string(input_string, lowercase_flag) {
-  // todo: Unicode stringfolding, see http://unicode.org/reports/tr15/ - Canonical Decomposition
+  input_string = unorm.nfkc(input_string) 
   
   var output_string = input_string;
+  output_string = unorm.nfkc(output_string) 
+  output_string = tr.transliterate(output_string);
   if (lowercase_flag) output_string = output_string.toLowerCase();
 
-  // todo: characters to remove
-  var excluded_characters = "±˙˜´‘’‛“”‟·•!¿¡#∞£¥$%‰&˝¨ˆ¯˘¸˛^~√∫*§◊¬¶†‡≤≥÷:ªº\"\'©®™";
-
-  // todo: characters replaced by space
-  var replaced_characters = "°˚+-–—_…,.;ı(){}‹›<>«=≈?|/\\";
-  
-  // replace whitespace with single spaces
+  output_string = output_string.replace(/±˙˜´‘’‛“”‟·•!¿¡#∞£¥$%‰&˝¨ˆ¯˘¸˛^~√∫*§◊¬¶†‡≤≥÷:ªº\"\'©®™/g, '')
+  output_string = output_string.replace(/°˚+-–—_…,.;ı(){}‹›<>«=≈?\\\|\/\\/g, ' ');
   output_string = output_string.replace(/\s+/,' ');
   
   return output_string;
