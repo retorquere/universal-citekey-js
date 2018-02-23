@@ -41,7 +41,7 @@ module.exports = function citekey(reference) {
   const citekey_base = author_name + year;
 
   // universal citekey: use doi if provided
-  if (reference.DOI) return citekey_base + hash(reference.DOI);
+  if (reference.DOI) return citekey_base + hash('b', 10, reference.DOI);
 
   // title hash
   let title = '';
@@ -56,12 +56,12 @@ module.exports = function citekey(reference) {
     if (title) break;
   }
   title = canonical_string(title, true);
-  return citekey_base + hash(title);
+  return citekey_base + hash('t', 4, title);
 }
 
-function hash(str) {
+function hash(start, factor, str) {
   const crc = str ? CRC32.bstr(str) : 0;
-  const hash1 = 'b'.charCodeAt(0) + Math.floor((crc % (10*26)) / 26);
+  const hash1 = start.charCodeAt(0) + Math.floor((crc % (factor*26)) / 26);
   const hash2 = 'a'.charCodeAt(0) + (crc % 26);
   return String.fromCharCode(hash1) + String.fromCharCode(hash2);
 }
