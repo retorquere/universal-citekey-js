@@ -7,7 +7,8 @@
   "author": "Emiliano Heyns <emiliano.heyns@iris-advies.com>",
   "license": "MIT",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "postversion": "git push --follow-tags"
   },
   "dependencies": {
     "crc-32": "^1.2.0",
