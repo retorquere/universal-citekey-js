@@ -2,13 +2,14 @@ const CRC32 = require('crc-32');
 const unorm = require('unorm');
 const tr = require('transliteration');
 
-module.exports = function citekey(reference_or_author, title, year) {
+module.exports = function citekey(reference_or_author, doi, year, title) {
   let reference = null;
   if (typeof reference_or_author === 'string') {
     reference = {
       author: [ { family: reference_or_author } ],
       issued: { 'date-parts': [ [ year ] ] },
       title: title,
+      DOI: doi,
     };
   } else {
     reference = reference_or_author;
