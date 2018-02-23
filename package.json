@@ -1,6 +1,6 @@
 {
   "name": "universal-citekey-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Mendeley \"universal\" citekeys",
   "main": "index.js",
   "repository": "git@github.com:retorquere/universal-citekey-js.git",
