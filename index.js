@@ -79,7 +79,7 @@ function canonical_string(input_string, lowercase_flag) {
   if (lowercase_flag) output_string = output_string.toLowerCase();
 
   output_string = output_string.replace(/±˙˜´‘’‛“”‟·•!¿¡#∞£¥$%‰&˝¨ˆ¯˘¸˛^~√∫*§◊¬¶†‡≤≥÷:ªº\"\'©®™/g, '')
-  output_string = output_string.replace(/°˚+-–—_…,.;ı(){}‹›<>«=≈?\\\|\/\\/g, ' ');
+  output_string = output_string.replace(/°˚+-–—_…,.;ı(){}‹›<>«=≈?\\\|\/\\/g, '');
   output_string = output_string.replace(/\s+/,' ');
   
   return output_string;
