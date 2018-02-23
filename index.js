@@ -60,7 +60,9 @@ module.exports = function citekey(reference) {
 }
 
 function hash(start, factor, str) {
-  const crc = str ? CRC32.bstr(str) : 0;
+  const crc = str ? CRC32.bstr(str.replace(/\s/g, '')) : 0;
+  //convert to unsigned 32-bit int if needed
+  if (crc < 0) crc += 4294967296;
   const hash1 = start.charCodeAt(0) + Math.floor((crc % (factor*26)) / 26);
   const hash2 = 'a'.charCodeAt(0) + (crc % 26);
   return String.fromCharCode(hash1) + String.fromCharCode(hash2);
