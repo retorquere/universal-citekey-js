@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "crc-32": "^1.2.0",
-    "transliteration": "^1.6.2",
+    "transliteration": "^2.2.0",
     "unorm": "^1.4.1"
   }
 }
